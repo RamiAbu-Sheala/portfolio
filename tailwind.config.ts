@@ -75,6 +75,9 @@ const config: Config = {
                     950: 'var(--accent-950)',
                 },
             },
+            fontFamily: {
+                'NotoSans': ['NotoSans', 'sans-serif'],
+            },
         },
     },
     plugins: [],

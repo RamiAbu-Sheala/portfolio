@@ -14,10 +14,12 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-        <body className={"dark bg-background-50 text-text-950 px-8 md:px-24 lg:px-48 xl:px-72 2xl:px-96"}
+        <body className={"dark bg-background-50 text-text-950 font-NotoSans"}
         >
         <Navbar/>
-        {children}
+        <main className="px-8 md:px-24 lg:px-48 xl:px-72 2xl:px-96">
+            {children}
+        </main>
         </body>
         </html>
     );

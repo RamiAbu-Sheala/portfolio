@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+.title-highlight {
+    position: relative;
+}
+
+.title-highlight::before {
+    background: var(--accent-500);
+    content: '';
+    position: absolute;
+    top: 1.5rem;
+    left: 1rem;
+    right: -1rem;
+    bottom: -0.2rem;
+    z-index: -1;
+    filter: blur(2px) opacity(60%);
+}
+
 @layer base {
     :root {
         --text-50: #e9effb;
@@ -127,5 +143,10 @@
         --accent-900: #f8d3e3;
         --accent-950: #fbe9f1;
 
+    }
+
+    @font-face {
+        font-family: 'NotoSans';
+        src: url('../fonts/NotoSans.ttf');
     }
 }
