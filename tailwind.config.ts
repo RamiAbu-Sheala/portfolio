@@ -8,6 +8,12 @@ const config: Config = {
     ],
     theme: {
         extend: {
+            spacing: {
+                '128': '32rem',
+            },
+            screens: {
+                '3xl': '2100px',
+            },
             colors: {
                 'text': {
                     50: 'var(--text-50)',

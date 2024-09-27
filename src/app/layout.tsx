@@ -17,7 +17,7 @@ export default function RootLayout({
         <body className={"dark bg-background-50 text-text-950 font-NotoSans"}
         >
         <Navbar/>
-        <main className="px-8 md:px-24 lg:px-48 xl:px-72 2xl:px-96">
+        <main className="px-8 md:px-24 lg:px-36 xl:px-52 2xl:px-96 3xl:px-128">
             {children}
         </main>
         </body>
