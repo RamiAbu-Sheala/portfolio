@@ -10,7 +10,7 @@ export function ScrollLink({href, isActive, text}: ScrollLinkProps) {
     return (
         <Link
             href={href}
-            className={`border-accent-500 ${isActive ? "border-b-2" : "hover:border-b-2"}`}
+            className={`border-accent-500 ${isActive ? "border-b-2" : "hover:border-b-2"} flex items-end`}
         >
             {text}
         </Link>
