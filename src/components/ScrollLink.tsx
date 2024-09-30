@@ -1,22 +1,14 @@
-'use client';
 import Link from "next/link";
+import React from "react";
 
 type ScrollLinkProps = {
     element: string;
     isActive: boolean;
+    handleClick: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
     text: string;
 };
 
-export function ScrollLink({element, isActive, text}: ScrollLinkProps) {
-
-    const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-        e.preventDefault();
-        const target = document.querySelector(element);
-        if (target) {
-            target.scrollIntoView({behavior: "smooth"});
-            history.pushState(null, "", element);
-        }
-    }
+export function ScrollLink({element, isActive, handleClick, text}: ScrollLinkProps) {
 
     return (
         <Link
