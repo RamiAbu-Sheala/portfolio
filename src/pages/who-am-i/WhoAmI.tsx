@@ -12,7 +12,7 @@ export function WhoAmI({active}: WhoAmIProps) {
 
     const logoVariants = {
         offscreen: {
-            x: "100vw",
+            x: "100dvw",
             y: 0,
             transition: {
                 duration: 0.5,
@@ -22,9 +22,10 @@ export function WhoAmI({active}: WhoAmIProps) {
             y: 0,
             x: 0,
             transition: {
-                duration: 1.5,
+                duration: 1.2,
                 type: "spring",
                 bounce: 0.4,
+                delay: 1.2,
             },
         },
         idle: {
@@ -48,6 +49,9 @@ export function WhoAmI({active}: WhoAmIProps) {
                         },
                         onscreen: {
                             display: "flex",
+                            transition: {
+                                delay: 1
+                            }
                         }
                     }}
         >
@@ -57,7 +61,7 @@ export function WhoAmI({active}: WhoAmIProps) {
                 animate={active ? "onscreen" : "offscreen"}
                 variants={{
                     offscreen: {
-                        x: "-100vw",
+                        x: "-100dvw",
                         transition: {
                             duration: 0.5,
                         }
@@ -68,6 +72,7 @@ export function WhoAmI({active}: WhoAmIProps) {
                             duration: 1.2,
                             type: "spring",
                             bounce: 0.4,
+                            delay: 1,
                         }
                     }
                 }}

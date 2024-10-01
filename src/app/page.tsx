@@ -16,21 +16,15 @@ export default function Home() {
         ["#experiences", "Experiences"],
         ["#contact", "Contact"],
     ]);
+    const initialSection = window.location.hash || "#who-am-i";
 
-    const [activeSection, setActiveSection] = useState("#who-am-i");
+    const [activeSection, setActiveSection] = useState(initialSection);
 
     const goToSection = (element: string) => {
         const target = document.querySelector(element);
         if (target) {
             history.pushState(null, "", element);
             setActiveSection(element);
-
-            console.log(activeSection);
-
-            const timeout = setTimeout(() => {
-                blockScroll.current = false;
-                clearTimeout(timeout);
-            }, 2000);
         }
     }
 
@@ -56,12 +50,19 @@ export default function Home() {
         if (blockScroll.current) {
             return;
         }
+
         blockScroll.current = true;
+
         if (up) {
             goToNextSection();
         } else {
             goToPreviousSection();
         }
+
+        const timeout = setTimeout(() => {
+            blockScroll.current = false;
+            clearTimeout(timeout);
+        }, 2000);
     }
 
 
@@ -85,7 +86,7 @@ export default function Home() {
         <div>
             <Navbar pages={pages} goToSection={goToSection} activeSection={activeSection}/>
             <WhoAmI active={activeSection === "#who-am-i"}/>
-            <ToolSet/>
+            <ToolSet active={activeSection === "#toolset"}/>
             <Experiences/>
             <Contact/>
             <BackgroundLogo/>
