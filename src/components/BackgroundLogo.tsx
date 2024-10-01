@@ -1,25 +1,26 @@
 'use client';
 import {motion, useAnimation} from "framer-motion";
-import {useEffect} from "react";
+import {useEffect, useRef} from "react";
 
 export function BackgroundLogo() {
+    const y = useRef(0);
 
     const scrollControls = useAnimation();
-    const handleScroll = () => {
-        const scrollY = window.scrollY;
+    const handleScroll = (e: Event) => {
+        e.preventDefault();
         scrollControls.start({
-            y: scrollY/1.333,
+            y: y.current,
             transition: {
-                duration: 0,
+                duration: 2,
                 ease: "linear"
             }
         }).then();
     }
 
     useEffect(() => {
-        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("wheel", handleScroll, {passive: false});
         return () => {
-            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("wheel", handleScroll);
         };
     });
 
@@ -27,11 +28,11 @@ export function BackgroundLogo() {
         <motion.img src="/logo.png"
                     alt="background scrolling logo"
                     style={{
-                        position: "absolute",
+                        position: "fixed",
                         top: "calc(70dvh)",
                         left: 0,
                         right: 0,
-                        zIndex: -10,
+                        zIndex: -100,
                         width: "100%",
                         height: "auto",
                     }}

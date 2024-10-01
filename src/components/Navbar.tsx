@@ -1,64 +1,15 @@
-'use client';
 import Image from "next/image";
 import {MdDarkMode} from "react-icons/md";
 import {ScrollLink} from "@/components/ScrollLink";
-import React, {useEffect, useRef, useState} from "react";
+import React from "react";
 
-export function Navbar() {
-    const scrollY = useRef<number>(0);
+type NavbarProps = {
+    pages: Map<string, string>;
+    activeSection: string;
+    goToSection: (element: string) => void;
+};
 
-    const pages: Map<string, string> = new Map([
-        ["#who-am-i", "Who am I?"],
-        ["#toolset", "Toolset"],
-        ["#experiences", "Experiences"],
-        ["#contact", "Contact"],
-    ]);
-
-    const [activeSection, setActiveSection] = useState("#who-am-i");
-
-    const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, element: string) => {
-        e.preventDefault();
-        const target = document.querySelector(element);
-        if (target) {
-            target.scrollIntoView({behavior: "smooth"});
-            history.pushState(null, "", element);
-        }
-    }
-
-    const goToNextSection = () => {
-        const currentSection = document.querySelector(activeSection);
-        if (currentSection) {
-            const nextSection = currentSection.nextElementSibling;
-            if (nextSection) {
-                nextSection.scrollIntoView({behavior: "smooth"});
-                history.pushState(null, "", `#${nextSection.id}`);
-                setActiveSection(`#${nextSection.id}`);
-            }
-        }
-    }
-
-    const handleScroll = (scrollY: number, prevScrollY: number) => {
-        if (scrollY > prevScrollY) {
-            goToNextSection();
-        }
-    }
-//todo: add debounce
-    useEffect(() => {
-        const registerScroll = () => {
-            const currentScrollY = window.scrollY;
-            window.requestAnimationFrame(() => {
-                handleScroll(currentScrollY, scrollY.current);
-                console.log(currentScrollY);
-                console.log(scrollY.current);
-                scrollY.current = currentScrollY;
-            });
-        }
-
-        window.addEventListener('scroll', registerScroll);
-        return () => {
-            window.removeEventListener('scroll', registerScroll);
-        }
-    });
+export function Navbar({pages, activeSection, goToSection}: NavbarProps) {
 
     return (
         <div className="fixed w-full z-10 top-0 bg-background-50">
@@ -73,8 +24,8 @@ export function Navbar() {
                                 element={element}
                                 isActive={activeSection === element}
                                 handleClick={(e) => {
-                                    setActiveSection(element);
-                                    handleClick(e, element);
+                                    e.preventDefault();
+                                    goToSection(element);
                                 }}
                                 text={text}
                             />
