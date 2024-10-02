@@ -1,12 +1,13 @@
 'use client';
 import {motion} from "framer-motion";
+import {SectionProps} from "@/sections";
 
-export function ToolSet() {
+function ToolSet({active}: SectionProps) {
     return (
         <div className="flex flex-col h-screen items-center justify-center">
             <motion.div className="flex flex-col gap-6 text-center"
                         initial="offscreen"
-                        animate={"onscreen"}
+                        animate={active ? "onscreen" : "offscreen"}
                         variants={{
                             offscreen: {
                                 y: "-100dvh",
@@ -26,7 +27,7 @@ export function ToolSet() {
                     className="font-extrabold title-highlight">Toolset</span></h1>
                 <motion.p
                     initial="offscreen"
-                    animate={"onscreen"}
+                    animate={active ? "onscreen" : "offscreen"}
                     variants={{
                         offscreen: {
                             x: "-100dvw",
@@ -51,3 +52,5 @@ export function ToolSet() {
         </div>
     );
 }
+
+export {ToolSet};

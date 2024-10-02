@@ -1,7 +1,13 @@
 'use client';
 
-export function Experiences() {
+import {SectionProps} from "@/sections";
+import {motion} from "framer-motion";
+
+function Experiences({active}: SectionProps) {
     return (
-            <p></p>
+        <motion.div>
+        </motion.div>
     );
 }
+
+export {Experiences};

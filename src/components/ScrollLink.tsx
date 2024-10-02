@@ -8,7 +8,7 @@ type ScrollLinkProps = {
     text: string;
 };
 
-export function ScrollLink({element, isActive, handleClick, text}: ScrollLinkProps) {
+function ScrollLink({element, isActive, handleClick, text}: ScrollLinkProps) {
 
     return (
         <Link
@@ -20,3 +20,5 @@ export function ScrollLink({element, isActive, handleClick, text}: ScrollLinkPro
         </Link>
     );
 }
+
+export {ScrollLink};

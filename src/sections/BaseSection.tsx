@@ -1,14 +1,13 @@
-'use client';
 import React from "react";
 import {motion} from "framer-motion";
 
 type BaseSectionProps = {
-    children: React.ReactNode;
+    children:(active: boolean) => React.ReactNode;
     active: boolean;
     id: string;
 }
 
-export function BaseSection({children, active, id}: BaseSectionProps) {
+function BaseSection({children, active, id}: BaseSectionProps) {
     return (
         <motion.div id={id}
                     className="flex flex-col h-screen items-center justify-center px-8 md:px-24 lg:px-36 xl:px-52 2xl:px-96 3xl:px-128 overflow-clip"
@@ -25,7 +24,9 @@ export function BaseSection({children, active, id}: BaseSectionProps) {
                         }
                     }}
         >
-            {active && children}
+            {active && children(active)}
         </motion.div>
     );
 }
+
+export {BaseSection};

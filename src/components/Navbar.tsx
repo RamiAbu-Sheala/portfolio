@@ -2,7 +2,7 @@ import Image from "next/image";
 import {MdDarkMode, MdLightMode} from "react-icons/md";
 import {ScrollLink} from "@/components/ScrollLink";
 import React from "react";
-import {hashFromSection, Section, sectionStrings} from "@/types/Section";
+import {hashFromSection, Section, sectionStrings} from "@/sections";
 
 type NavbarProps = {
     activeSection: Section;
@@ -11,7 +11,7 @@ type NavbarProps = {
     toggleTheme: () => void;
 };
 
-export function Navbar({activeSection, goToSection, theme, toggleTheme}: NavbarProps) {
+function Navbar({activeSection, goToSection, theme, toggleTheme}: NavbarProps) {
 
     return (
         <nav className="fixed w-full z-50 top-0">
@@ -45,3 +45,5 @@ export function Navbar({activeSection, goToSection, theme, toggleTheme}: NavbarP
         </nav>
     )
 }
+
+export {Navbar};

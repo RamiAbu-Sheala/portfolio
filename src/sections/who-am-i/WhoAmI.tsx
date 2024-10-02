@@ -2,8 +2,9 @@
 
 import {motion} from "framer-motion";
 import {useState} from "react";
+import {SectionProps} from "@/sections";
 
-export function WhoAmI() {
+function WhoAmI({active}: SectionProps) {
     const [activeLogoAnimation, setActiveLogoAnimation] = useState("onscreen");
 
     const logoVariants = {
@@ -40,7 +41,7 @@ export function WhoAmI() {
             <motion.div
                 className="flex flex-col gap-8 max-w-max"
                 initial="offscreen"
-                animate={"onscreen"}
+                animate={active ? "onscreen" : "offscreen"}
                 variants={{
                     offscreen: {
                         x: "-100dvw",
@@ -69,7 +70,7 @@ export function WhoAmI() {
                     developing Java back-ends.</p>
             </motion.div>
             <motion.div
-                animate={activeLogoAnimation}
+                animate={active ? activeLogoAnimation: "offscreen"}
                 initial="offscreen"
                 variants={logoVariants}
                 onAnimationComplete={animation => {
@@ -86,3 +87,5 @@ export function WhoAmI() {
         </div>
     );
 }
+
+export {WhoAmI};

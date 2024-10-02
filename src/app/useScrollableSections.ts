@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from "react";
-import {hashFromSection, nextSection, previousSection, Section, sectionFromHash} from "@/types/Section";
+import {hashFromSection, nextSection, previousSection, Section, sectionFromHash} from "@/sections";
 
 export function useScrollableSections() {
     const blockScroll = useRef<boolean>(false);
@@ -12,14 +12,16 @@ export function useScrollableSections() {
     }, []);
 
     useEffect(() => {
+        const ref = mainRef.current;
+
         window.addEventListener("scroll", (e) => e.preventDefault(), {passive: false});
         window.addEventListener('touchmove', (e) => e.preventDefault(), {passive: false});
 
         window.addEventListener('wheel', handleWheelEvent, {passive: false});
 
-        if (mainRef.current) {
-            mainRef.current.addEventListener("touchstart", handleTouchStart);
-            mainRef.current.addEventListener("touchend", handleTouchEnd);
+        if (ref) {
+            ref.addEventListener("touchstart", handleTouchStart);
+            ref.addEventListener("touchend", handleTouchEnd);
         }
 
         return () => {
@@ -27,9 +29,9 @@ export function useScrollableSections() {
             window.removeEventListener('touchmove', (e) => e.preventDefault());
             window.removeEventListener('wheel', handleWheelEvent);
 
-            if (mainRef.current) {
-                mainRef.current.removeEventListener("touchstart", handleTouchStart);
-                mainRef.current.removeEventListener("touchend", handleTouchEnd);
+            if (ref) {
+                ref.removeEventListener("touchstart", handleTouchStart);
+                ref.removeEventListener("touchend", handleTouchEnd);
             }
         }
     });

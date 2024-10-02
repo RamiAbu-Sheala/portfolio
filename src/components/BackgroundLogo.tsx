@@ -2,7 +2,7 @@
 import {motion, useAnimation} from "framer-motion";
 import {useEffect, useRef} from "react";
 
-export function BackgroundLogo() {
+function BackgroundLogo() {
     const y = useRef(0);
 
     const scrollControls = useAnimation();
@@ -40,3 +40,5 @@ export function BackgroundLogo() {
                     initial={{y: 0}}/>
     )
 }
+
+export {BackgroundLogo};

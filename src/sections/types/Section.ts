@@ -1,11 +1,11 @@
-export enum Section {
+enum Section {
     WHO_AM_I,
     TOOLSET,
     EXPERIENCES,
     CONTACT,
 }
 
-export const sectionStrings: Map<Section, string> = new Map([
+const sectionStrings: Map<Section, string> = new Map([
     [Section.WHO_AM_I, "Who am I?"],
     [Section.TOOLSET, "Toolset"],
     [Section.EXPERIENCES, "Experiences"],
@@ -19,7 +19,7 @@ const sectionHashes: Map<Section, string> = new Map([
     [Section.CONTACT, "#contact"],
 ]);
 
-export const sectionFromHash = (hash: string): Section => {
+const sectionFromHash = (hash: string): Section => {
     switch (hash) {
         case "#who-am-i":
             return Section.WHO_AM_I;
@@ -34,18 +34,20 @@ export const sectionFromHash = (hash: string): Section => {
     }
 }
 
-export const hashFromSection = (section: Section): string => {
+const hashFromSection = (section: Section): string => {
     return sectionHashes.get(section) || "";
 }
 
-export const sectionToString = (section: Section): string => {
+const sectionToString = (section: Section): string => {
     return sectionStrings.get(section) || "";
 }
 
-export const nextSection = (section: Section): Section | null => {
+const nextSection = (section: Section): Section | null => {
     return section === Section.CONTACT ? null : section + 1;
 }
 
-export const previousSection = (section: Section): Section | null => {
+const previousSection = (section: Section): Section | null => {
     return section === Section.WHO_AM_I ? null : section - 1;
 }
+
+export {Section, sectionStrings, sectionFromHash, hashFromSection, sectionToString, nextSection, previousSection};
