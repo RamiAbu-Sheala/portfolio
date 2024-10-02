@@ -3,6 +3,7 @@ import {MdDarkMode} from "react-icons/md";
 import {ScrollLink} from "@/components/ScrollLink";
 import React from "react";
 import {hashFromSection, Section, sectionStrings} from "@/types/Section";
+import {useTheme} from "next-themes";
 
 type NavbarProps = {
     activeSection: Section;
@@ -10,6 +11,7 @@ type NavbarProps = {
 };
 
 export function Navbar({activeSection, goToSection}: NavbarProps) {
+    const {theme, setTheme} = useTheme();
 
     return (
         <nav className="fixed w-full z-10 top-0">
@@ -31,7 +33,10 @@ export function Navbar({activeSection, goToSection}: NavbarProps) {
                             />
                         ))
                     }
-                    <button className="flex items-end">
+                    <button className="flex items-end" onClick={(e) => {
+                        e.preventDefault();
+                        setTheme(theme === "dark" ? "light" : "dark");
+                    }}>
                         <MdDarkMode size={24}/>
                     </button>
                 </div>
