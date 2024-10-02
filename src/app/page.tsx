@@ -6,57 +6,36 @@ import {Experiences} from "@/pages/experiences/Experiences";
 import {Contact} from "@/pages/contact/Contact";
 import {Navbar} from "@/components/Navbar";
 import React, {useEffect, useRef, useState} from "react";
+import {hashFromSection, nextSection, previousSection, Section, sectionFromHash} from "@/types/Section";
 
 export default function Home() {
     const blockScroll = useRef<boolean>(false);
+    const [activeSection, setActiveSection] = useState<Section>(sectionFromHash(window.location.hash));
 
-    const pages: Map<string, string> = new Map([
-        ["#who-am-i", "Who am I?"],
-        ["#toolset", "Toolset"],
-        ["#experiences", "Experiences"],
-        ["#contact", "Contact"],
-    ]);
-    const initialSection = window.location.hash || "#who-am-i";
+    const goToSection = (section: Section | null) => {
+        if (section === null) return;
 
-    const [activeSection, setActiveSection] = useState(initialSection);
+        const sectionHash = hashFromSection(section);
+        const target = document.querySelector(sectionHash);
 
-    const goToSection = (element: string) => {
-        const target = document.querySelector(element);
         if (target) {
-            history.pushState(null, "", element);
-            setActiveSection(element);
+            history.pushState(null, "", sectionHash);
+            setActiveSection(section);
         }
     }
 
-    const goToNextSection = () => {
-        const sections = Array.from(pages.keys());
-        const currentSectionIndex = sections.indexOf(activeSection);
-        const nextSection = sections[currentSectionIndex + 1];
-        if (nextSection) {
-            goToSection(nextSection);
-        }
-    }
-
-    const goToPreviousSection = () => {
-        const sections = Array.from(pages.keys());
-        const currentSectionIndex = sections.indexOf(activeSection);
-        const previousSection = sections[currentSectionIndex - 1];
-        if (previousSection) {
-            goToSection(previousSection);
-        }
-    }
-
-    const handleScroll = (up: boolean) => {
+    const handleWheelEvent = (e: WheelEvent) => {
+        e.preventDefault();
         if (blockScroll.current) {
             return;
         }
 
         blockScroll.current = true;
 
-        if (up) {
-            goToNextSection();
+        if (e.deltaY > 0) {
+            goToSection(nextSection(activeSection));
         } else {
-            goToPreviousSection();
+            goToSection(previousSection(activeSection));
         }
 
         const timeout = setTimeout(() => {
@@ -67,14 +46,9 @@ export default function Home() {
 
 
     useEffect(() => {
-        const registerScroll = (e: WheelEvent) => {
-            e.preventDefault();
-            handleScroll(e.deltaY > 0);
-        }
-
-        window.addEventListener('wheel', registerScroll, {passive: false});
+        window.addEventListener('wheel', handleWheelEvent, {passive: false});
         return () => {
-            window.removeEventListener('wheel', registerScroll);
+            window.removeEventListener('wheel', handleWheelEvent);
         }
     });
 
@@ -84,9 +58,9 @@ export default function Home() {
 
     return (
         <div>
-            <Navbar pages={pages} goToSection={goToSection} activeSection={activeSection}/>
-            <WhoAmI active={activeSection === "#who-am-i"}/>
-            <ToolSet active={activeSection === "#toolset"}/>
+            <Navbar goToSection={goToSection} activeSection={activeSection}/>
+            <WhoAmI active={activeSection === Section.WHO_AM_I}/>
+            <ToolSet active={activeSection === Section.TOOLSET}/>
             <Experiences/>
             <Contact/>
             <BackgroundLogo/>

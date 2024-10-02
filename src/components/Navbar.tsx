@@ -2,30 +2,30 @@ import Image from "next/image";
 import {MdDarkMode} from "react-icons/md";
 import {ScrollLink} from "@/components/ScrollLink";
 import React from "react";
+import {hashFromSection, Section, sectionStrings} from "@/types/Section";
 
 type NavbarProps = {
-    pages: Map<string, string>;
-    activeSection: string;
-    goToSection: (element: string) => void;
+    activeSection: Section;
+    goToSection: (section: Section | null) => void;
 };
 
-export function Navbar({pages, activeSection, goToSection}: NavbarProps) {
+export function Navbar({activeSection, goToSection}: NavbarProps) {
 
     return (
-        <div className="fixed w-full z-10 top-0 bg-background-50">
+        <nav className="fixed w-full z-10 top-0">
             <div
                 className="flex justify-between py-4 align-bottom px-8 md:px-24 lg:px-36 xl:px-52 2xl:px-96 3xl:px-128">
                 <Image src="logo.svg" alt="logo" width={50} height={50}/>
                 <div className="flex gap-8 align-bottom">
                     {
-                        Array.from(pages.entries()).map(([element, text]) => (
+                        sectionStrings.entries().toArray().map(([section, text]) => (
                             <ScrollLink
-                                key={element}
-                                element={element}
-                                isActive={activeSection === element}
+                                key={section}
+                                element={hashFromSection(section)}
+                                isActive={activeSection === section}
                                 handleClick={(e) => {
                                     e.preventDefault();
-                                    goToSection(element);
+                                    goToSection(section);
                                 }}
                                 text={text}
                             />
@@ -36,6 +36,6 @@ export function Navbar({pages, activeSection, goToSection}: NavbarProps) {
                     </button>
                 </div>
             </div>
-        </div>
+        </nav>
     )
 }
