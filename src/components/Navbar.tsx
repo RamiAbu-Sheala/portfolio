@@ -3,21 +3,18 @@ import {MdDarkMode, MdLightMode} from "react-icons/md";
 import {ScrollLink} from "@/components/ScrollLink";
 import React from "react";
 import {hashFromSection, Section, sectionStrings} from "@/types/Section";
-import {useTheme} from "next-themes";
 
 type NavbarProps = {
     activeSection: Section;
     goToSection: (section: Section | null) => void;
+    theme: string;
+    toggleTheme: () => void;
 };
 
-export function Navbar({activeSection, goToSection}: NavbarProps) {
-    const {theme, setTheme} = useTheme();
-    const toggleTheme = () => {
-        setTheme(theme === "dark" ? "light" : "dark");
-    }
+export function Navbar({activeSection, goToSection, theme, toggleTheme}: NavbarProps) {
 
     return (
-        <nav className="fixed w-full z-10 top-0">
+        <nav className="fixed w-full z-50 top-0">
             <div
                 className="flex justify-between py-4 align-bottom px-8 md:px-24 lg:px-36 xl:px-52 2xl:px-96 3xl:px-128">
                 <Image src="logo.svg" alt="logo" width={50} height={50}/>

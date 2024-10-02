@@ -1,33 +1,12 @@
 'use client';
 import {motion} from "framer-motion";
 
-type ToolSetProps = {
-    active: boolean;
-};
-
-export function ToolSet({active}: ToolSetProps) {
+export function ToolSet() {
     return (
-        <motion.div id="toolset"
-                    className="flex flex-col z-40 h-screen items-center justify-center px-8 md:px-24 lg:px-36 xl:px-52 2xl:px-96 3xl:px-128"
-                    animate={active ? "onscreen" : "offscreen"}
-                    initial={{
-                        display: "none",
-                    }}
-                    variants={{
-                        offscreen: {
-                            display: "none",
-                        },
-                        onscreen: {
-                            display: "flex",
-                            transition: {
-                                delay: 1
-                            }
-                        }
-                    }}
-        >
+        <div className="flex flex-col h-screen items-center justify-center">
             <motion.div className="flex flex-col gap-6 text-center"
                         initial="offscreen"
-                        animate={active ? "onscreen" : "offscreen"}
+                        animate={"onscreen"}
                         variants={{
                             offscreen: {
                                 y: "-100dvh",
@@ -47,7 +26,7 @@ export function ToolSet({active}: ToolSetProps) {
                     className="font-extrabold title-highlight">Toolset</span></h1>
                 <motion.p
                     initial="offscreen"
-                    animate={active ? "onscreen" : "offscreen"}
+                    animate={"onscreen"}
                     variants={{
                         offscreen: {
                             x: "-100dvw",
@@ -64,9 +43,11 @@ export function ToolSet({active}: ToolSetProps) {
                             }
                         }
                     }}
-                >These technologies and skills are the tools I use on a regular <br/> basis to design and build amazing software solutions.</motion.p>
+                >These technologies and skills are the tools I use on a regular <br/> basis to design and build amazing
+                    software solutions.
+                </motion.p>
             </motion.div>
             <div></div>
-        </motion.div>
+        </div>
     );
 }

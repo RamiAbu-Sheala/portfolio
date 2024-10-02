@@ -3,11 +3,7 @@
 import {motion} from "framer-motion";
 import {useState} from "react";
 
-type WhoAmIProps = {
-    active: boolean;
-};
-
-export function WhoAmI({active}: WhoAmIProps) {
+export function WhoAmI() {
     const [activeLogoAnimation, setActiveLogoAnimation] = useState("onscreen");
 
     const logoVariants = {
@@ -40,25 +36,11 @@ export function WhoAmI({active}: WhoAmIProps) {
     }
 
     return (
-        <motion.div id="who-am-i"
-                    className="flex flex-col z-50 h-screen items-center justify-evenly md:flex-row lg:justify-between px-8 md:px-24 lg:px-36 xl:px-52 2xl:px-96 3xl:px-128 overflow-clip"
-                    animate={active ? "onscreen" : "offscreen"}
-                    variants={{
-                        offscreen: {
-                            display: "none",
-                        },
-                        onscreen: {
-                            display: "flex",
-                            transition: {
-                                delay: 1
-                            }
-                        }
-                    }}
-        >
+        <div className="flex flex-col h-screen w-full items-center justify-evenly md:flex-row lg:justify-between">
             <motion.div
                 className="flex flex-col gap-8 max-w-max"
                 initial="offscreen"
-                animate={active ? "onscreen" : "offscreen"}
+                animate={"onscreen"}
                 variants={{
                     offscreen: {
                         x: "-100dvw",
@@ -87,7 +69,7 @@ export function WhoAmI({active}: WhoAmIProps) {
                     developing Java back-ends.</p>
             </motion.div>
             <motion.div
-                animate={active ? activeLogoAnimation : "offscreen"}
+                animate={activeLogoAnimation}
                 initial="offscreen"
                 variants={logoVariants}
                 onAnimationComplete={animation => {
@@ -101,6 +83,6 @@ export function WhoAmI({active}: WhoAmIProps) {
                 <img src="/logo.svg" alt="Floating logo"
                      className="md:size-64 lg:size-72 xl:size-80 3xl:size-96"/>
             </motion.div>
-        </motion.div>
+        </div>
     );
 }
