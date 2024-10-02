@@ -2,22 +2,17 @@
 
 import {motion} from "framer-motion";
 import {useState} from "react";
-import {SectionProps} from "@/sections";
+import {Section, SectionProps} from "@/sections";
 
-function WhoAmI({active}: SectionProps) {
+function WhoAmI({activeSection}: SectionProps) {
     const [activeLogoAnimation, setActiveLogoAnimation] = useState("onscreen");
+    const isActive = activeSection === Section.WHO_AM_I;
 
     const animationVariants = {
-        initial: {
-            y: "100dvh",
+        higher: {
+            y: "-50dvh",
             transition: {
-                duration: 0.5,
-            }
-        },
-        offscreen: {
-            y: "-100dvh",
-            transition: {
-                duration: 0.5,
+                duration: 1,
             }
         },
         onscreen: {
@@ -26,7 +21,6 @@ function WhoAmI({active}: SectionProps) {
                 duration: 1.2,
                 type: "spring",
                 bounce: 0.4,
-                delay: 1.2,
             },
         },
         idle: {
@@ -44,8 +38,8 @@ function WhoAmI({active}: SectionProps) {
         <div className="flex flex-col h-screen w-full items-center justify-evenly md:flex-row lg:justify-between">
             <motion.div
                 className="flex flex-col gap-8 max-w-max"
-                initial="initial"
-                animate={active ? "onscreen" : "offscreen"}
+                initial="higher"
+                animate={isActive ? "onscreen" : "higher"}
                 variants={animationVariants}
             >
                 <div className="text-3xl xl:text-4xl">
@@ -58,13 +52,13 @@ function WhoAmI({active}: SectionProps) {
                     developing Java back-ends.</p>
             </motion.div>
             <motion.div
-                animate={active ? activeLogoAnimation: "offscreen"}
-                initial="initial"
+                animate={isActive ? activeLogoAnimation: "higher"}
+                initial="higher"
                 variants={animationVariants}
                 onAnimationComplete={animation => {
                     if (animation === "onscreen") {
                         setActiveLogoAnimation("idle");
-                    } else if (animation === "offscreen") {
+                    } else if (animation === "higher") {
                         setActiveLogoAnimation("onscreen");
                     }
                 }}

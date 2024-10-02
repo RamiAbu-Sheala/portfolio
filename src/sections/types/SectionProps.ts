@@ -1,5 +1,7 @@
+import {Section} from "@/sections";
+
 type SectionProps = {
-    active: boolean;
+    activeSection: Section;
 }
 
 export { type SectionProps };

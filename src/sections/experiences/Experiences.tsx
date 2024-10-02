@@ -3,7 +3,7 @@
 import {SectionProps} from "@/sections";
 import {motion} from "framer-motion";
 
-function Experiences({active}: SectionProps) {
+function Experiences({activeSection}: SectionProps) {
     return (
         <motion.div>
         </motion.div>

@@ -21,19 +21,19 @@ function Home() {
                     toggleTheme={toggleTheme}/>
             <main ref={mainRef}>
                 <BaseSection id={hashFromSection(Section.WHO_AM_I)} active={activeSection === Section.WHO_AM_I}>
-                    {(active) => <WhoAmI active={active}/>}
+                    <WhoAmI activeSection={activeSection}/>
                 </BaseSection>
 
                 <BaseSection id={hashFromSection(Section.TOOLSET)} active={activeSection === Section.TOOLSET}>
-                    {(active) => <ToolSet active={active}/>}
+                    <ToolSet activeSection={activeSection}/>
                 </BaseSection>
 
                 <BaseSection id={hashFromSection(Section.EXPERIENCES)} active={activeSection === Section.EXPERIENCES}>
-                    {(active) => <Experiences active={active}/>}
+                    <Experiences activeSection={activeSection}/>
                 </BaseSection>
 
                 <BaseSection id={hashFromSection(Section.CONTACT)} active={activeSection === Section.CONTACT}>
-                    {(active) => <Contact active={active}/>}
+                    <Contact activeSection={activeSection}/>
                 </BaseSection>
 
                 <BackgroundLogo/>

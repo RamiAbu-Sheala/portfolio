@@ -2,7 +2,7 @@
 
 import {SectionProps} from "@/sections";
 
-function Contact({active}: SectionProps) {
+function Contact({activeSection}: SectionProps) {
     return (
             <p></p>
     );

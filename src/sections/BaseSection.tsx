@@ -2,7 +2,7 @@ import React from "react";
 import {motion} from "framer-motion";
 
 type BaseSectionProps = {
-    children:(active: boolean) => React.ReactNode;
+    children: React.ReactNode;
     active: boolean;
     id: string;
 }
@@ -15,17 +15,14 @@ function BaseSection({children, active, id}: BaseSectionProps) {
                     initial={"offscreen"}
                     variants={{
                         offscreen: {
-                            display: "none",
+                            height: 0,
                         },
                         onscreen: {
-                            display: "flex",
-                            transition: {
-                                delay: 1
-                            }
+                            height: "100vh",
                         }
                     }}
         >
-            {children(active)}
+            {children}
         </motion.div>
     );
 }
