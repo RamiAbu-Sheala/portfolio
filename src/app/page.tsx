@@ -5,31 +5,23 @@ import {ToolSet} from "@/sections/toolset/ToolSet";
 import {Experiences} from "@/sections/experiences/Experiences";
 import {Contact} from "@/sections/contact/Contact";
 import {Navbar} from "@/components/Navbar";
-import React, {useEffect, useRef, useState} from "react";
-import {hashFromSection, nextSection, previousSection, Section, sectionFromHash} from "@/types/Section";
+import React, {useEffect, useRef} from "react";
+import {hashFromSection, nextSection, previousSection, Section} from "@/types/Section";
 import {BaseSection} from "@/sections/BaseSection";
 import {useTheme} from "next-themes";
+import {useSections} from "@/app/useSections";
 
 export default function Home() {
-    const blockScroll = useRef<boolean>(false);
-    const [activeSection, setActiveSection] = useState<Section>(Section.WHO_AM_I);
     const {theme, setTheme} = useTheme();
 
     const toggleTheme = () => {
         setTheme(theme === "dark" ? "light" : "dark");
     }
 
-    const goToSection = (section: Section | null) => {
-        if (section === null) return;
+    const {blockScroll, activeSection, goToSection} = useSections();
 
-        const sectionHash = hashFromSection(section);
-        const target = document.getElementById(sectionHash);
-
-        if (target) {
-            history.pushState(null, "", sectionHash);
-            setActiveSection(section);
-        }
-    }
+    const mainRef = useRef<HTMLElement>(null);
+    const touchY = useRef(0);
 
     const handleWheelEvent = (e: WheelEvent) => {
         e.preventDefault();
@@ -44,35 +36,68 @@ export default function Home() {
         } else {
             goToSection(previousSection(activeSection));
         }
+    }
 
-        const timeout = setTimeout(() => {
-            blockScroll.current = false;
-            clearTimeout(timeout);
-        }, 2000);
+    const handleTouchStart = (e: TouchEvent) => {
+        e.preventDefault();
+        touchY.current = e.changedTouches[0].clientY;
+    }
+
+    const handleTouchEnd = (e: TouchEvent) => {
+        if (blockScroll.current) {
+            return;
+        }
+
+        const deltaY = e.changedTouches[0].clientY - touchY.current;
+        if (deltaY > 80) {
+            blockScroll.current = true;
+            goToSection(previousSection(activeSection));
+        } else if (deltaY < -80) {
+            blockScroll.current = true;
+            goToSection(nextSection(activeSection));
+        }
     }
 
     useEffect(() => {
+        window.addEventListener("scroll", (e) => e.preventDefault(), {passive: false});
+        window.addEventListener('touchmove', (e) => e.preventDefault(), {passive: false});
+
         window.addEventListener('wheel', handleWheelEvent, {passive: false});
+
+        if (mainRef.current) {
+            mainRef.current.addEventListener("touchstart", handleTouchStart);
+            mainRef.current.addEventListener("touchend", handleTouchEnd);
+        }
+
         return () => {
+            window.removeEventListener("scroll", (e) => e.preventDefault());
+            window.removeEventListener('touchmove', (e) => e.preventDefault());
             window.removeEventListener('wheel', handleWheelEvent);
+
+            if (mainRef.current) {
+                mainRef.current.removeEventListener("touchstart", handleTouchStart);
+                mainRef.current.removeEventListener("touchend", handleTouchEnd);
+            }
         }
     });
 
-    useEffect(() => {
-        window.addEventListener("scroll", (e) => e.preventDefault(), {passive: false});
-        setActiveSection(sectionFromHash(window.location.hash));
-    }, []);
-
     return (
-        <div>
-            <Navbar goToSection={goToSection} activeSection={activeSection} theme={theme || "dark"} toggleTheme={toggleTheme}/>
+        <>
+            <Navbar goToSection={goToSection} activeSection={activeSection} theme={theme || "dark"}
+                    toggleTheme={toggleTheme}/>
+            <main ref={mainRef}>
+                <BaseSection id={hashFromSection(Section.WHO_AM_I)}
+                             active={activeSection === Section.WHO_AM_I}><WhoAmI/></BaseSection>
+                <BaseSection id={hashFromSection(Section.TOOLSET)}
+                             active={activeSection === Section.TOOLSET}><ToolSet/></BaseSection>
+                <BaseSection id={hashFromSection(Section.EXPERIENCES)}
+                             active={activeSection === Section.EXPERIENCES}><Experiences/></BaseSection>
+                <BaseSection id={hashFromSection(Section.CONTACT)}
+                             active={activeSection === Section.CONTACT}><Contact/></BaseSection>
 
-            <BaseSection id={hashFromSection(Section.WHO_AM_I)} active={activeSection === Section.WHO_AM_I}><WhoAmI/></BaseSection>
-            <BaseSection id={hashFromSection(Section.TOOLSET)} active={activeSection === Section.TOOLSET}><ToolSet/></BaseSection>
-            <BaseSection id={hashFromSection(Section.EXPERIENCES)} active={activeSection === Section.EXPERIENCES}><Experiences/></BaseSection>
-            <BaseSection id={hashFromSection(Section.CONTACT)} active={activeSection === Section.CONTACT}><Contact/></BaseSection>
-            <BackgroundLogo/>
-        </div>
+                <BackgroundLogo/>
+            </main>
+        </>
     )
 }
 //
