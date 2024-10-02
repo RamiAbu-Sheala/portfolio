@@ -7,17 +7,21 @@ import {SectionProps} from "@/sections";
 function WhoAmI({active}: SectionProps) {
     const [activeLogoAnimation, setActiveLogoAnimation] = useState("onscreen");
 
-    const logoVariants = {
+    const animationVariants = {
+        initial: {
+            y: "100dvh",
+            transition: {
+                duration: 0.5,
+            }
+        },
         offscreen: {
-            x: "100dvw",
-            y: 0,
+            y: "-100dvh",
             transition: {
                 duration: 0.5,
             }
         },
         onscreen: {
             y: 0,
-            x: 0,
             transition: {
                 duration: 1.2,
                 type: "spring",
@@ -40,25 +44,9 @@ function WhoAmI({active}: SectionProps) {
         <div className="flex flex-col h-screen w-full items-center justify-evenly md:flex-row lg:justify-between">
             <motion.div
                 className="flex flex-col gap-8 max-w-max"
-                initial="offscreen"
+                initial="initial"
                 animate={active ? "onscreen" : "offscreen"}
-                variants={{
-                    offscreen: {
-                        x: "-100dvw",
-                        transition: {
-                            duration: 0.5,
-                        }
-                    },
-                    onscreen: {
-                        x: 0,
-                        transition: {
-                            duration: 1.2,
-                            type: "spring",
-                            bounce: 0.4,
-                            delay: 1,
-                        }
-                    }
-                }}
+                variants={animationVariants}
             >
                 <div className="text-3xl xl:text-4xl">
                     <h1>Hello There!</h1>
@@ -71,8 +59,8 @@ function WhoAmI({active}: SectionProps) {
             </motion.div>
             <motion.div
                 animate={active ? activeLogoAnimation: "offscreen"}
-                initial="offscreen"
-                variants={logoVariants}
+                initial="initial"
+                variants={animationVariants}
                 onAnimationComplete={animation => {
                     if (animation === "onscreen") {
                         setActiveLogoAnimation("idle");
