@@ -1,5 +1,5 @@
 import Image from "next/image";
-import {MdDarkMode} from "react-icons/md";
+import {MdDarkMode, MdLightMode} from "react-icons/md";
 import {ScrollLink} from "@/components/ScrollLink";
 import React from "react";
 import {hashFromSection, Section, sectionStrings} from "@/types/Section";
@@ -12,6 +12,9 @@ type NavbarProps = {
 
 export function Navbar({activeSection, goToSection}: NavbarProps) {
     const {theme, setTheme} = useTheme();
+    const toggleTheme = () => {
+        setTheme(theme === "dark" ? "light" : "dark");
+    }
 
     return (
         <nav className="fixed w-full z-10 top-0">
@@ -20,7 +23,7 @@ export function Navbar({activeSection, goToSection}: NavbarProps) {
                 <Image src="logo.svg" alt="logo" width={50} height={50}/>
                 <div className="flex gap-8 align-bottom">
                     {
-                        sectionStrings.entries().toArray().map(([section, text]) => (
+                        Array.from(sectionStrings.entries()).map(([section, text]) => (
                             <ScrollLink
                                 key={section}
                                 element={hashFromSection(section)}
@@ -33,11 +36,12 @@ export function Navbar({activeSection, goToSection}: NavbarProps) {
                             />
                         ))
                     }
-                    <button className="flex items-end" onClick={(e) => {
-                        e.preventDefault();
-                        setTheme(theme === "dark" ? "light" : "dark");
-                    }}>
-                        <MdDarkMode size={24}/>
+                    <button className="flex items-end" onClick={toggleTheme}>
+                        {
+                            theme === "dark" ?
+                                <MdLightMode size={24}/> :
+                                <MdDarkMode size={24}/>
+                        }
                     </button>
                 </div>
             </div>

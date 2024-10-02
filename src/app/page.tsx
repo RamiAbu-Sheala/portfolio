@@ -1,16 +1,16 @@
 'use client';
-import {WhoAmI} from "@/pages/who-am-i/WhoAmI";
+import {WhoAmI} from "@/sections/who-am-i/WhoAmI";
 import {BackgroundLogo} from "@/components/BackgroundLogo";
-import {ToolSet} from "@/pages/toolset/ToolSet";
-import {Experiences} from "@/pages/experiences/Experiences";
-import {Contact} from "@/pages/contact/Contact";
+import {ToolSet} from "@/sections/toolset/ToolSet";
+import {Experiences} from "@/sections/experiences/Experiences";
+import {Contact} from "@/sections/contact/Contact";
 import {Navbar} from "@/components/Navbar";
 import React, {useEffect, useRef, useState} from "react";
 import {hashFromSection, nextSection, previousSection, Section, sectionFromHash} from "@/types/Section";
 
 export default function Home() {
     const blockScroll = useRef<boolean>(false);
-    const [activeSection, setActiveSection] = useState<Section>(sectionFromHash(window.location.hash));
+    const [activeSection, setActiveSection] = useState<Section>(Section.WHO_AM_I);
 
     const goToSection = (section: Section | null) => {
         if (section === null) return;
@@ -43,8 +43,7 @@ export default function Home() {
             clearTimeout(timeout);
         }, 2000);
     }
-
-
+    
     useEffect(() => {
         window.addEventListener('wheel', handleWheelEvent, {passive: false});
         return () => {
@@ -54,7 +53,8 @@ export default function Home() {
 
     useEffect(() => {
         window.addEventListener("scroll", (e) => e.preventDefault(), {passive: false});
-    });
+        setActiveSection(sectionFromHash(window.location.hash));
+    }, []);
 
     return (
         <div>
