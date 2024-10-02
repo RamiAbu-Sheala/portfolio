@@ -5,11 +5,11 @@ import {ToolSet} from "@/sections/toolset/ToolSet";
 import {Experiences} from "@/sections/experiences/Experiences";
 import {Contact} from "@/sections/contact/Contact";
 import {Navbar} from "@/components/Navbar";
-import React, {useEffect, useRef} from "react";
-import {hashFromSection, nextSection, previousSection, Section} from "@/types/Section";
+import React from "react";
+import {hashFromSection, Section} from "@/types/Section";
 import {BaseSection} from "@/sections/BaseSection";
 import {useTheme} from "next-themes";
-import {useSections} from "@/app/useSections";
+import {useScrollableSections} from "@/app/useScrollableSections";
 
 export default function Home() {
     const {theme, setTheme} = useTheme();
@@ -18,68 +18,7 @@ export default function Home() {
         setTheme(theme === "dark" ? "light" : "dark");
     }
 
-    const {blockScroll, activeSection, goToSection} = useSections();
-
-    const mainRef = useRef<HTMLElement>(null);
-    const touchY = useRef(0);
-
-    const handleWheelEvent = (e: WheelEvent) => {
-        e.preventDefault();
-        if (blockScroll.current) {
-            return;
-        }
-
-        blockScroll.current = true;
-
-        if (e.deltaY > 0) {
-            goToSection(nextSection(activeSection));
-        } else {
-            goToSection(previousSection(activeSection));
-        }
-    }
-
-    const handleTouchStart = (e: TouchEvent) => {
-        e.preventDefault();
-        touchY.current = e.changedTouches[0].clientY;
-    }
-
-    const handleTouchEnd = (e: TouchEvent) => {
-        if (blockScroll.current) {
-            return;
-        }
-
-        const deltaY = e.changedTouches[0].clientY - touchY.current;
-        if (deltaY > 80) {
-            blockScroll.current = true;
-            goToSection(previousSection(activeSection));
-        } else if (deltaY < -80) {
-            blockScroll.current = true;
-            goToSection(nextSection(activeSection));
-        }
-    }
-
-    useEffect(() => {
-        window.addEventListener("scroll", (e) => e.preventDefault(), {passive: false});
-        window.addEventListener('touchmove', (e) => e.preventDefault(), {passive: false});
-
-        window.addEventListener('wheel', handleWheelEvent, {passive: false});
-
-        if (mainRef.current) {
-            mainRef.current.addEventListener("touchstart", handleTouchStart);
-            mainRef.current.addEventListener("touchend", handleTouchEnd);
-        }
-
-        return () => {
-            window.removeEventListener("scroll", (e) => e.preventDefault());
-            window.removeEventListener('touchmove', (e) => e.preventDefault());
-            window.removeEventListener('wheel', handleWheelEvent);
-
-            if (mainRef.current) {
-                mainRef.current.removeEventListener("touchstart", handleTouchStart);
-                mainRef.current.removeEventListener("touchend", handleTouchEnd);
-            }
-        }
-    });
+    const {activeSection, mainRef, goToSection} = useScrollableSections();
 
     return (
         <>
