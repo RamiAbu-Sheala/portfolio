@@ -1,6 +1,6 @@
 import Image from "next/image";
 import {MdDarkMode, MdLightMode} from "react-icons/md";
-import {ScrollLink} from "@/components/ScrollLink";
+import {ScrollLink} from "@/components";
 import React from "react";
 import {hashFromSection, Section, sectionStrings} from "@/sections";
 

@@ -1,20 +1,20 @@
 const OFFSCREEN_ANIMATION_VARIANTS = {
     // display higher when the active section is higher
     higher: {
-        y: "200dvh",
+        y: "100dvh",
         transition: {
             duration: 1,
         }
     },
     lower: {
-        y: "-200dvh",
+        y: "-100dvh",
         transition: {
             duration: 1,
         }
     },
 }
 
-const getAnimationVariants = (onScreenDelay = 0) => {
+const animationVariants = (onScreenDelay = 0) => {
     return {
         ...OFFSCREEN_ANIMATION_VARIANTS,
         onscreen: {
@@ -29,9 +29,9 @@ const getAnimationVariants = (onScreenDelay = 0) => {
     }
 }
 
-const getFloatingElementVariants = (onScreenDelay = 0) => {
+const floatingElementVariants = (onScreenDelay = 0) => {
     return {
-        ...getAnimationVariants(onScreenDelay),
+        ...animationVariants(onScreenDelay),
         idle: {
             y: [0, 15, 0],
             x: [0, -3, 0],
@@ -44,4 +44,4 @@ const getFloatingElementVariants = (onScreenDelay = 0) => {
     }
 }
 
-export { OFFSCREEN_ANIMATION_VARIANTS, getAnimationVariants, getFloatingElementVariants };
+export { OFFSCREEN_ANIMATION_VARIANTS, animationVariants, floatingElementVariants };

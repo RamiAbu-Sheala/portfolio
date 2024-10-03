@@ -1,7 +1,7 @@
 'use client';
 import {BaseSection, Contact, Experiences, hashFromSection, Section, ToolSet, WhoAmI} from "@/sections";
-import {BackgroundLogo} from "@/components/BackgroundLogo";
-import {Navbar} from "@/components/Navbar";
+import {BackgroundLogo} from "@/components";
+import {Navbar} from "@/components";
 import React from "react";
 import {useTheme} from "next-themes";
 import {useScrollableSections} from "@/app/useScrollableSections";

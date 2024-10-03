@@ -2,7 +2,7 @@
 import {motion} from "framer-motion";
 import {Section, SectionProps} from "@/sections";
 import {TOOLSET} from "@/sections/toolset/Tool";
-import {getAnimationVariants} from "@/sections/types";
+import {animationVariants} from "@/sections/types";
 
 function ToolSet({activeSection}: SectionProps) {
     const isActive = activeSection === Section.TOOLSET;
@@ -16,7 +16,7 @@ function ToolSet({activeSection}: SectionProps) {
                 <motion.h1
                     initial={activeAnimation}
                     animate={activeAnimation}
-                    variants={getAnimationVariants()}
+                    variants={animationVariants()}
                     className="text-3xl xl:text-4xl font-NotoSans"
                 >
                     This is my <span className="font-extrabold title-highlight">Toolset</span>
@@ -24,7 +24,7 @@ function ToolSet({activeSection}: SectionProps) {
                 <motion.p
                     initial={activeAnimation}
                     animate={activeAnimation}
-                    variants={getAnimationVariants(animationDelay)}
+                    variants={animationVariants(animationDelay)}
                 >These technologies and skills are the tools I use on a regular <br/> basis to design and build amazing
                     software solutions.
                 </motion.p>
@@ -35,7 +35,7 @@ function ToolSet({activeSection}: SectionProps) {
                         key={index}
                         initial={activeAnimation}
                         animate={activeAnimation}
-                        variants={getAnimationVariants(index * animationDelay + animationDelay)}
+                        variants={animationVariants(index * animationDelay + animationDelay)}
                         className="text-center flex flex-col items-center justify-start text-wrap w-16 pb-2 md:w-20 lg:w-24 lg:text-xl"
                     >
                         <tool.Logo className="w-full h-fit"/>

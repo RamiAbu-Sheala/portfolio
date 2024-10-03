@@ -3,7 +3,7 @@
 import {motion} from "framer-motion";
 import {useEffect, useState} from "react";
 import {Section, SectionProps} from "@/sections";
-import {getAnimationVariants, getFloatingElementVariants} from "@/sections/types";
+import {animationVariants, floatingElementVariants} from "@/sections/types";
 
 function WhoAmI({activeSection}: SectionProps) {
     const isActive = activeSection === Section.WHO_AM_I;
@@ -21,7 +21,7 @@ function WhoAmI({activeSection}: SectionProps) {
                 className="flex flex-col gap-8 max-w-max"
                 initial="lower"
                 animate={activeAnimation}
-                variants={getAnimationVariants()}
+                variants={animationVariants()}
             >
                 <div className="text-3xl xl:text-4xl font-NotoSans">
                     <h1>Hello There!</h1>
@@ -35,7 +35,7 @@ function WhoAmI({activeSection}: SectionProps) {
             <motion.div
                 initial="lower"
                 animate={activeLogoAnimation}
-                variants={getFloatingElementVariants(0.2)}
+                variants={floatingElementVariants(0.2)}
                 onAnimationComplete={animation => {
                     if (animation === "onscreen") {
                         setActiveLogoAnimation("idle");
