@@ -149,4 +149,9 @@
         font-family: 'NotoSans';
         src: url('../fonts/NotoSans.ttf');
     }
+
+    @font-face {
+        font-family: 'Fredoka';
+        src: url("../fonts/Fredoka.ttf");
+    }
 }

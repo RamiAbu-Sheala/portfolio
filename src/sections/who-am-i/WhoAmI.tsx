@@ -1,48 +1,29 @@
 'use client';
 
 import {motion} from "framer-motion";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Section, SectionProps} from "@/sections";
+import {getAnimationVariants, getFloatingElementVariants} from "@/sections/types";
 
 function WhoAmI({activeSection}: SectionProps) {
-    const [activeLogoAnimation, setActiveLogoAnimation] = useState("onscreen");
     const isActive = activeSection === Section.WHO_AM_I;
+    const activeAnimation = isActive ? "onscreen" : "lower";
+    const [activeLogoAnimation, setActiveLogoAnimation] = useState(activeAnimation);
 
-    const animationVariants = {
-        higher: {
-            y: "-50dvh",
-            transition: {
-                duration: 1,
-            }
-        },
-        onscreen: {
-            y: 0,
-            transition: {
-                duration: 1.2,
-                type: "spring",
-                bounce: 0.4,
-            },
-        },
-        idle: {
-            y: [0, 15, 0],
-            x: [0, -3, 0],
-            transition: {
-                duration: 3,
-                ease: "easeInOut",
-                repeat: Infinity,
-            }
-        }
-    }
+    useEffect(() => {
+        setActiveLogoAnimation(activeAnimation);
+    }, [activeAnimation]);
+
 
     return (
         <div className="flex flex-col h-screen w-full items-center justify-evenly md:flex-row lg:justify-between">
             <motion.div
                 className="flex flex-col gap-8 max-w-max"
-                initial="higher"
-                animate={isActive ? "onscreen" : "higher"}
-                variants={animationVariants}
+                initial="lower"
+                animate={activeAnimation}
+                variants={getAnimationVariants()}
             >
-                <div className="text-3xl xl:text-4xl">
+                <div className="text-3xl xl:text-4xl font-NotoSans">
                     <h1>Hello There!</h1>
                     {/* eslint-disable-next-line react/no-unescaped-entities */}
                     <h1>I'm <span className="font-extrabold title-highlight">Rami Abu-sheala</span></h1>
@@ -52,14 +33,12 @@ function WhoAmI({activeSection}: SectionProps) {
                     developing Java back-ends.</p>
             </motion.div>
             <motion.div
-                animate={isActive ? activeLogoAnimation: "higher"}
-                initial="higher"
-                variants={animationVariants}
+                initial="lower"
+                animate={activeLogoAnimation}
+                variants={getFloatingElementVariants(0.2)}
                 onAnimationComplete={animation => {
                     if (animation === "onscreen") {
                         setActiveLogoAnimation("idle");
-                    } else if (animation === "higher") {
-                        setActiveLogoAnimation("onscreen");
                     }
                 }}
             >

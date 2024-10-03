@@ -1,53 +1,48 @@
 'use client';
 import {motion} from "framer-motion";
 import {Section, SectionProps} from "@/sections";
+import {TOOLSET} from "@/sections/toolset/Tool";
+import {getAnimationVariants} from "@/sections/types";
 
 function ToolSet({activeSection}: SectionProps) {
     const isActive = activeSection === Section.TOOLSET;
     const activeIsHigher = activeSection > Section.TOOLSET;
-
-    const animationVariants = {
-        // display higher when the active section is higher
-        higher: {
-            y: "50dvh",
-            transition: {
-                duration: 1,
-            }
-        },
-        lower: {
-            y: "-50dvh",
-            transition: {
-                duration: 1,
-            }
-        },
-        onscreen: {
-            y: 0,
-            transition: {
-                duration: 1.2,
-                type: "spring",
-                bounce: 0.4,
-            },
-        },
-    }
+    const activeAnimation = isActive ? "onscreen" : activeIsHigher ? "lower" : "higher";
+    const animationDelay = activeIsHigher ? -0.02 : 0.02;
 
     return (
-        <div className="flex flex-col h-screen items-center justify-center">
-            <motion.div className="flex flex-col gap-6 text-center"
-                        initial={activeIsHigher ? "lower" : "higher"}
-                        animate={isActive ? "onscreen" : (activeIsHigher ? "lower" : "higher")}
-                        variants={animationVariants}
-            >
-                <h1 className="text-3xl xl:text-4xl">This is my <span
-                    className="font-extrabold title-highlight">Toolset</span></h1>
+        <div className="flex flex-col h-screen items-center justify-center gap-12">
+            <div className="flex flex-col gap-6 text-center">
+                <motion.h1
+                    initial={activeAnimation}
+                    animate={activeAnimation}
+                    variants={getAnimationVariants()}
+                    className="text-3xl xl:text-4xl font-NotoSans"
+                >
+                    This is my <span className="font-extrabold title-highlight">Toolset</span>
+                </motion.h1>
                 <motion.p
-                    initial={activeIsHigher ? "lower" : "higher"}
-                    animate={isActive ? "onscreen" : (activeIsHigher ? "lower" : "higher")}
-                    variants={animationVariants}
+                    initial={activeAnimation}
+                    animate={activeAnimation}
+                    variants={getAnimationVariants(animationDelay)}
                 >These technologies and skills are the tools I use on a regular <br/> basis to design and build amazing
                     software solutions.
                 </motion.p>
-            </motion.div>
-            <div></div>
+            </div>
+            <div className="flex flex-row flex-wrap gap-4 justify-center max-w-screen-lg">
+                {TOOLSET.map((tool, index) => (
+                    <motion.div
+                        key={index}
+                        initial={activeAnimation}
+                        animate={activeAnimation}
+                        variants={getAnimationVariants(index * animationDelay + animationDelay)}
+                        className="text-center flex flex-col items-center justify-start text-wrap w-16 pb-2 md:w-20 lg:w-24 lg:text-xl"
+                    >
+                        <tool.Logo className="w-full h-fit"/>
+                        <p>{tool.name}</p>
+                    </motion.div>
+                ))}
+            </div>
         </div>
     );
 }

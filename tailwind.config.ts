@@ -83,6 +83,7 @@ const config: Config = {
             },
             fontFamily: {
                 'NotoSans': ['NotoSans', 'sans-serif'],
+                'Fredoka': ['Fredoka', 'sans-serif'],
             },
         },
     },
