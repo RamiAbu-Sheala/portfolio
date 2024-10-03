@@ -1,4 +1,4 @@
-const OFFSCREEN_ANIMATION_VARIANTS = {
+const SCROLL_ANIMATION_VARIANTS = {
     // display higher when the active section is higher
     higher: {
         y: "100dvh",
@@ -12,36 +12,25 @@ const OFFSCREEN_ANIMATION_VARIANTS = {
             duration: 1,
         }
     },
-}
-
-const animationVariants = (onScreenDelay = 0) => {
-    return {
-        ...OFFSCREEN_ANIMATION_VARIANTS,
-        onscreen: {
-            y: 0,
-            transition: {
-                duration: 1.2,
-                type: "spring",
-                bounce: 0.4,
-                delay: onScreenDelay,
-            },
+    onscreen: (delay: number) => ({
+        y: 0,
+        transition: {
+            duration: 1.2,
+            type: "spring",
+            bounce: 0.4,
+            delay: delay,
         },
-    }
+    }),
+    hover: (delay: number) => ({
+        y: [0, 15, 0],
+        x: [0, -3, 0],
+        transition: {
+            duration: 3,
+            ease: "easeInOut",
+            repeat: Infinity,
+            delay: delay + 1.2,
+        }
+    }),
 }
 
-const floatingElementVariants = (onScreenDelay = 0) => {
-    return {
-        ...animationVariants(onScreenDelay),
-        idle: {
-            y: [0, 15, 0],
-            x: [0, -3, 0],
-            transition: {
-                duration: 3,
-                ease: "easeInOut",
-                repeat: Infinity,
-            }
-        },
-    }
-}
-
-export { OFFSCREEN_ANIMATION_VARIANTS, animationVariants, floatingElementVariants };
+export {SCROLL_ANIMATION_VARIANTS};

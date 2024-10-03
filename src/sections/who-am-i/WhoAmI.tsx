@@ -1,19 +1,12 @@
 'use client';
 
 import {motion} from "framer-motion";
-import {useEffect, useState} from "react";
 import {Section, SectionProps} from "@/sections";
-import {animationVariants, floatingElementVariants} from "@/sections/types";
+import {SCROLL_ANIMATION_VARIANTS} from "@/sections/types";
 
 function WhoAmI({activeSection}: SectionProps) {
     const isActive = activeSection === Section.WHO_AM_I;
     const activeAnimation = isActive ? "onscreen" : "lower";
-    const [activeLogoAnimation, setActiveLogoAnimation] = useState(activeAnimation);
-
-    useEffect(() => {
-        setActiveLogoAnimation(activeAnimation);
-    }, [activeAnimation]);
-
 
     return (
         <div className="flex flex-col h-screen w-full items-center justify-evenly md:flex-row lg:justify-between">
@@ -21,7 +14,7 @@ function WhoAmI({activeSection}: SectionProps) {
                 className="flex flex-col gap-8 max-w-max"
                 initial="lower"
                 animate={activeAnimation}
-                variants={animationVariants()}
+                variants={SCROLL_ANIMATION_VARIANTS}
             >
                 <div className="text-3xl xl:text-4xl font-NotoSans">
                     <h1>Hello There!</h1>
@@ -34,16 +27,17 @@ function WhoAmI({activeSection}: SectionProps) {
             </motion.div>
             <motion.div
                 initial="lower"
-                animate={activeLogoAnimation}
-                variants={floatingElementVariants(0.2)}
-                onAnimationComplete={animation => {
-                    if (animation === "onscreen") {
-                        setActiveLogoAnimation("idle");
-                    }
-                }}
+                animate={activeAnimation}
+                variants={SCROLL_ANIMATION_VARIANTS}
+                custom={0.2}
             >
-                <img src="/logo.svg" alt="Floating logo"
-                     className="md:size-64 lg:size-72 xl:size-80 3xl:size-96"/>
+                <motion.img
+                    src="/logo.svg" alt="Floating logo"
+                    className="md:size-64 lg:size-72 xl:size-80 3xl:size-96"
+                    animate="hover"
+                    variants={SCROLL_ANIMATION_VARIANTS}
+                    custom={0.2}
+                />
             </motion.div>
         </div>
     );
