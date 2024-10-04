@@ -36,7 +36,7 @@ function Home() {
                     <Contact activeSection={activeSection}/>
                 </BaseSection>
 
-                <BackgroundLogo/>
+                <BackgroundLogo activeSection={activeSection}/>
             </main>
         </>
     )

@@ -34,7 +34,7 @@ function WhoAmI({activeSection}: SectionProps) {
                 <motion.img
                     src="/logo.svg" alt="Floating logo"
                     className="md:size-64 lg:size-72 xl:size-80 3xl:size-96"
-                    animate="hover"
+                    animate={"hover"}
                     variants={SCROLL_ANIMATION_VARIANTS}
                     custom={0.2}
                 />

@@ -3,6 +3,7 @@ import {motion} from "framer-motion";
 import {Section, SectionProps} from "@/sections";
 import {TOOLSET} from "@/sections/toolset/Tool";
 import {SCROLL_ANIMATION_VARIANTS} from "@/sections/types";
+import {SectionTitle, TitleHighlight} from "@/sections/components";
 
 function ToolSet({activeSection}: SectionProps) {
     const isActive = activeSection === Section.TOOLSET;
@@ -12,15 +13,10 @@ function ToolSet({activeSection}: SectionProps) {
 
     return (
         <div className="flex flex-col h-screen items-center justify-center gap-12">
-            <div className="flex flex-col gap-6 text-center">
-                <motion.h1
-                    initial={activeAnimation}
-                    animate={activeAnimation}
-                    variants={SCROLL_ANIMATION_VARIANTS}
-                    className="text-3xl xl:text-4xl font-NotoSans"
-                >
-                    This is my <span className="font-extrabold title-highlight">Toolset</span>
-                </motion.h1>
+            <div className="flex flex-col gap-4 text-center">
+                <SectionTitle activeAnimation={activeAnimation}>
+                    This is my <TitleHighlight text={"Toolset"}/>
+                </SectionTitle>
                 <motion.p
                     initial={activeAnimation}
                     animate={activeAnimation}
@@ -37,11 +33,30 @@ function ToolSet({activeSection}: SectionProps) {
                         initial={activeAnimation}
                         animate={activeAnimation}
                         variants={SCROLL_ANIMATION_VARIANTS}
+                        whileHover={{
+                            scale: 1.05,
+                            transition: {
+                                duration: 0.2,
+                                ease: "easeOut"
+                            }
+                        }}
                         custom={index * animationDelay + animationDelay}
-                        className="text-center flex flex-col items-center justify-start text-wrap w-16 pb-2 md:w-20 lg:w-24 lg:text-xl"
                     >
-                        <tool.Logo className="w-full h-fit"/>
-                        <p>{tool.name}</p>
+                        <motion.div
+                            animate={{
+                                y: [0,-10,0],
+                                transition: {
+                                    duration: 0.4,
+                                    repeat: Infinity,
+                                    delay: index * animationDelay * 2,
+                                    repeatDelay: 10,
+                                }
+                            }}
+                            className="text-center flex flex-col items-center justify-start text-wrap w-16 pb-2 md:w-20 lg:w-24 lg:text-xl"
+                        >
+                            <tool.Logo className="w-full h-fit"/>
+                            <p>{tool.name}</p>
+                        </motion.div>
                     </motion.div>
                 ))}
             </div>
