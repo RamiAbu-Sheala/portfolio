@@ -3,7 +3,7 @@ import {motion} from "framer-motion";
 import {Section, SectionProps} from "@/sections";
 import {TOOLSET} from "@/sections/toolset/Tool";
 import {SCROLL_ANIMATION_VARIANTS} from "@/sections/types";
-import {SectionTitle, TitleHighlight} from "@/sections/components";
+import {SectionDescription, SectionHeader, SectionTitle, TitleHighlight} from "@/sections/components";
 
 function ToolSet({activeSection}: SectionProps) {
     const isActive = activeSection === Section.TOOLSET;
@@ -13,19 +13,15 @@ function ToolSet({activeSection}: SectionProps) {
 
     return (
         <div className="flex flex-col h-screen items-center justify-center gap-12">
-            <div className="flex flex-col gap-4 text-center">
+            <SectionHeader>
                 <SectionTitle activeAnimation={activeAnimation}>
                     This is my <TitleHighlight text={"Toolset"}/>
                 </SectionTitle>
-                <motion.p
-                    initial={activeAnimation}
-                    animate={activeAnimation}
-                    variants={SCROLL_ANIMATION_VARIANTS}
-                    custom={animationDelay}
-                >These technologies and skills are the tools I use on a regular <br/> basis to design and build amazing
-                    software solutions.
-                </motion.p>
-            </div>
+                <SectionDescription activeAnimation={activeAnimation} animationDelay={animationDelay}>
+                    These technologies and skills are the tools I use on a regular <br/>
+                    basis to design and build amazing software solutions.
+                </SectionDescription>
+            </SectionHeader>
             <div className="flex flex-row flex-wrap gap-4 justify-center max-w-screen-lg">
                 {TOOLSET.map((tool, index) => (
                     <motion.div
@@ -44,7 +40,7 @@ function ToolSet({activeSection}: SectionProps) {
                     >
                         <motion.div
                             animate={{
-                                y: [0,-10,0],
+                                y: [0, -10, 0],
                                 transition: {
                                     duration: 0.4,
                                     repeat: Infinity,

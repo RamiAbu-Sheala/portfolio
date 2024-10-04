@@ -3,6 +3,7 @@
 import {motion} from "framer-motion";
 import {Section, SectionProps} from "@/sections";
 import {SCROLL_ANIMATION_VARIANTS} from "@/sections/types";
+import {SectionDescription, SectionHeader, SectionTitle, TitleHighlight} from "@/sections/components";
 
 function WhoAmI({activeSection}: SectionProps) {
     const isActive = activeSection === Section.WHO_AM_I;
@@ -10,21 +11,17 @@ function WhoAmI({activeSection}: SectionProps) {
 
     return (
         <div className="flex flex-col h-screen w-full items-center justify-evenly md:flex-row lg:justify-between">
-            <motion.div
-                className="flex flex-col gap-8 max-w-max"
-                initial="lower"
-                animate={activeAnimation}
-                variants={SCROLL_ANIMATION_VARIANTS}
-            >
-                <div className="text-3xl xl:text-4xl font-NotoSans">
-                    <h1>Hello There!</h1>
-                    {/* eslint-disable-next-line react/no-unescaped-entities */}
-                    <h1>I'm <span className="font-extrabold title-highlight">Rami Abu-sheala</span></h1>
-                </div>
-                <p>I’m a full-stack developer.<br/>I love creating front-end apps and websites,<br/>but also
-                    enjoy
-                    developing Java back-ends.</p>
-            </motion.div>
+            <SectionHeader>
+                <SectionTitle activeAnimation={activeAnimation} initial="lower">
+                    Hello There! <br/>
+                    I am <TitleHighlight text={"Rami Abu-sheala"}/>
+                </SectionTitle>
+                <SectionDescription activeAnimation={activeAnimation} animationDelay={0.2} initial="lower">
+                    I’m a full-stack developer.<br/>
+                    I love creating front-end apps and websites,<br/>
+                    but also enjoy developing Java back-ends.
+                </SectionDescription>
+            </SectionHeader>
             <motion.div
                 initial="lower"
                 animate={activeAnimation}

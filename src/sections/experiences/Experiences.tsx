@@ -1,9 +1,7 @@
 'use client';
 
 import {Section, SectionProps} from "@/sections";
-import {motion} from "framer-motion";
-import {SectionTitle, TitleHighlight} from "@/sections/components";
-import {SCROLL_ANIMATION_VARIANTS} from "@/sections/types";
+import {SectionDescription, SectionHeader, SectionTitle, TitleHighlight} from "@/sections/components";
 
 function Experiences({activeSection}: SectionProps) {
     const isActive = activeSection === Section.EXPERIENCES;
@@ -13,19 +11,14 @@ function Experiences({activeSection}: SectionProps) {
 
     return (
         <div className="flex flex-col h-screen items-center justify-center gap-12">
-            <div className="flex flex-col gap-4 text-center">
+            <SectionHeader>
                 <SectionTitle activeAnimation={activeAnimation}>
                     <TitleHighlight text={"Experiences"}/> and <TitleHighlight text={"Projects"}/>
                 </SectionTitle>
-                <motion.p
-                    initial={activeAnimation}
-                    animate={activeAnimation}
-                    variants={SCROLL_ANIMATION_VARIANTS}
-                    custom={animationDelay}
-                >
+                <SectionDescription activeAnimation={activeAnimation} animationDelay={animationDelay}>
                     that have molded me into the developer I am today.
-                </motion.p>
-            </div>
+                </SectionDescription>
+            </SectionHeader>
             <div>
 
             </div>
