@@ -16,7 +16,7 @@ function Experiences({activeSection}: SectionProps) {
                     <TitleHighlight text={"Experiences"}/> and <TitleHighlight text={"Projects"}/>
                 </SectionTitle>
                 <SectionDescription activeAnimation={activeAnimation} animationDelay={animationDelay}>
-                    that have molded me into the developer I am today.
+                    that made me the developer I am today.
                 </SectionDescription>
             </SectionHeader>
             <div>

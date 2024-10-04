@@ -6,9 +6,14 @@ export function useScrollableSections() {
     const [activeSection, setActiveSection] = useState<Section>(Section.WHO_AM_I);
     const mainRef = useRef<HTMLElement>(null);
     const touchY = useRef(0);
-    
+
     useEffect(() => {
-        setActiveSection(sectionFromHash(window.location.hash));
+        const hash = window.location.hash;
+        if (hash) {
+            goToSection(sectionFromHash(hash));
+        } else {
+            goToSection(Section.WHO_AM_I);
+        }
     }, []);
 
     useEffect(() => {

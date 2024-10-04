@@ -11,7 +11,7 @@ function WhoAmI({activeSection}: SectionProps) {
 
     return (
         <div className="flex flex-col h-screen w-full items-center justify-evenly md:flex-row lg:justify-between">
-            <SectionHeader>
+            <SectionHeader className="text-start">
                 <SectionTitle activeAnimation={activeAnimation} initial="lower">
                     Hello There! <br/>
                     I am <TitleHighlight text={"Rami Abu-sheala"}/>
