@@ -14,7 +14,7 @@ function BackgroundLogo({activeSection}: SectionProps) {
             case Section.TOOLSET:
                 setScrollY("calc(20dvh)");
                 break;
-            case Section.EXPERIENCES:
+            case Section.EXPERIENCE:
                 setScrollY("calc(-20dvh)");
                 break;
             case Section.CONTACT:

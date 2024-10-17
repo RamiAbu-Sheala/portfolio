@@ -1,5 +1,5 @@
 'use client';
-import {BaseSection, Contact, Experiences, hashFromSection, Section, ToolSet, WhoAmI} from "@/sections";
+import {BaseSection, Contact, Experience, hashFromSection, Section, ToolSet, WhoAmI} from "@/sections";
 import {BackgroundLogo} from "@/components";
 import {Navbar} from "@/components";
 import React from "react";
@@ -28,8 +28,8 @@ function Home() {
                     <ToolSet activeSection={activeSection}/>
                 </BaseSection>
 
-                <BaseSection id={hashFromSection(Section.EXPERIENCES)} active={activeSection === Section.EXPERIENCES}>
-                    <Experiences activeSection={activeSection}/>
+                <BaseSection id={hashFromSection(Section.EXPERIENCE)} active={activeSection === Section.EXPERIENCE}>
+                    <Experience activeSection={activeSection}/>
                 </BaseSection>
 
                 <BaseSection id={hashFromSection(Section.CONTACT)} active={activeSection === Section.CONTACT}>

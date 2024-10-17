@@ -2,7 +2,7 @@
 import {motion} from "framer-motion";
 import {Section, SectionProps} from "@/sections";
 import {TOOLSET} from "@/sections/toolset/Tool";
-import {SCROLL_ANIMATION_VARIANTS} from "@/sections/types";
+import {SCROLL_ANIMATION_VARIANTS} from "../util";
 import {SectionDescription, SectionHeader, SectionTitle, TitleHighlight} from "@/sections/components";
 
 function ToolSet({activeSection}: SectionProps) {
@@ -48,7 +48,7 @@ function ToolSet({activeSection}: SectionProps) {
                                     repeatDelay: 10,
                                 }
                             }}
-                            className="text-center flex flex-col items-center justify-start text-wrap w-16 pb-2 md:w-20 lg:w-24 lg:text-xl"
+                            className="text-center flex flex-col items-center justify-start text-wrap w-12 pb-2 md:w-16 lg:w-20 lg:text-xl"
                         >
                             <tool.Logo className="w-full h-fit"/>
                             <p>{tool.name}</p>

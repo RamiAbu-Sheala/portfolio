@@ -1,5 +1,5 @@
 import {motion, Variants} from "framer-motion";
-import {SCROLL_ANIMATION_VARIANTS} from "@/sections/types";
+import {SCROLL_ANIMATION_VARIANTS} from "../util";
 import React from "react";
 
 type SectionTitleProps = {

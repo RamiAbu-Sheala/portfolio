@@ -2,7 +2,7 @@
 
 import {motion} from "framer-motion";
 import {Section, SectionProps} from "@/sections";
-import {SCROLL_ANIMATION_VARIANTS} from "@/sections/types";
+import {SCROLL_ANIMATION_VARIANTS} from "../util";
 import {SectionDescription, SectionHeader, SectionTitle, TitleHighlight} from "@/sections/components";
 
 function WhoAmI({activeSection}: SectionProps) {

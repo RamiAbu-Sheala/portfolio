@@ -1,6 +1,6 @@
 import React from "react";
 import {Variants, motion} from "framer-motion";
-import {SCROLL_ANIMATION_VARIANTS} from "@/sections/types";
+import {SCROLL_ANIMATION_VARIANTS} from "../util";
 
 type SectionDescriptionProps = {
     variants?: Variants;

@@ -3,7 +3,6 @@ import {
     BiLogoAws, BiLogoFigma,
     BiLogoFirebase,
     BiLogoJava,
-    BiLogoJavascript,
     BiLogoReact,
     BiLogoSpringBoot, BiLogoTailwindCss,
     BiLogoTypescript
@@ -21,10 +20,6 @@ const TOOLSET: Tool[] = [
     {
         name: "React",
         Logo: BiLogoReact,
-    },
-    {
-        name: "JavaScript",
-        Logo: BiLogoJavascript,
     },
     {
         name: "TypeScript",

@@ -1,21 +1,21 @@
 enum Section {
     WHO_AM_I,
     TOOLSET,
-    EXPERIENCES,
+    EXPERIENCE,
     CONTACT,
 }
 
 const sectionStrings: Map<Section, string> = new Map([
     [Section.WHO_AM_I, "Who am I?"],
     [Section.TOOLSET, "Toolset"],
-    [Section.EXPERIENCES, "Experiences"],
+    [Section.EXPERIENCE, "Experience"],
     [Section.CONTACT, "Contact"],
 ]);
 
 const sectionHashes: Map<Section, string> = new Map([
     [Section.WHO_AM_I, "#who-am-i"],
     [Section.TOOLSET, "#toolset"],
-    [Section.EXPERIENCES, "#experiences"],
+    [Section.EXPERIENCE, "#experience"],
     [Section.CONTACT, "#contact"],
 ]);
 
@@ -25,8 +25,8 @@ const sectionFromHash = (hash: string): Section => {
             return Section.WHO_AM_I;
         case "#toolset":
             return Section.TOOLSET;
-        case "#experiences":
-            return Section.EXPERIENCES;
+        case "#experience":
+            return Section.EXPERIENCE;
         case "#contact":
             return Section.CONTACT;
         default:
